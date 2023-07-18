@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { NepaliDatepickerComponent } from './nepali-datepicker-angular.component';
+import { ToNpPipe } from './pipes/to-np.pipe';
 
 @NgModule({
-  declarations: [NepaliDatepickerComponent],
+  declarations: [ToNpPipe, NepaliDatepickerComponent],
   imports: [],
   exports: [NepaliDatepickerComponent],
 })
