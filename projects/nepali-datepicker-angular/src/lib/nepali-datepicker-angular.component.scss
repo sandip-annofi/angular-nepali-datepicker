@@ -205,6 +205,9 @@ Dark Theme
         //   color: #fff;
         // }
       }
+      &--disabled {
+        background: #222;
+      }
       &:hover:not(.datepicker__date--active) {
         background-color: #222;
         color: #fff;

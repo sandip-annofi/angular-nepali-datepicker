@@ -210,7 +210,7 @@ export class NepaliDatepickerAngularPrivateService {
       throw new Error('Invalid Date');
     }
 
-    if (date < 1 || date > this.nepaliMonths[year - 2000][month - 1]) {
+    if (date < 1 || date > this.nepaliMonths[year - 2000][month]) {
       throw new Error('Invalid Date');
     }
 
