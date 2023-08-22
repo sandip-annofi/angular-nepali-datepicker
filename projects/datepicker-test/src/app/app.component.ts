@@ -28,7 +28,7 @@ export class AppComponent {
   public itEnglishDate: string = '';
   public minDate = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
   public maxDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000);
-  public primaryColor = 'blue';
+  public primaryColor = '#1d49e7';
   public isDark = false;
   public isError = false;
   public language = this.languageOptions[0].value as Language;

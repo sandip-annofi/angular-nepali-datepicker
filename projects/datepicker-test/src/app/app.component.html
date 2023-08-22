@@ -1,60 +1,48 @@
-<div>
-  here
-  <div class="test">
+<main class="datepicker">
+  <h2 class="datepicker__header">Angular Nepali datepicker</h2>
+  <p class="datepicker__description">
+    A datepicker for both AD and BS, With no other dependencies.
+  </p>
+  <div class="datepicker__block">
+    <label class="datepicker__block__label">Basic</label>
     <ne-datepicker
       [date]="date"
       dateIn="AD"
       (dateInBS)="updateNepaliDate($event)"
       (dateInAD)="updateEnglishDate($event)"
     ></ne-datepicker>
-    <div>
-      <h3>Output</h3>
-      <p>
-        Nepali date: <span>{{ nepaliDate }}</span>
-      </p>
-      <p>
-        English date: <span>{{ englishDate }}</span>
-      </p>
-    </div>
+
+    <label class="datepicker__block__description">Output</label>
+    <p>
+      Nepali date: <span>{{ nepaliDate }}</span>
+    </p>
+    <p>
+      English date: <span>{{ englishDate }}</span>
+    </p>
   </div>
 
-  <div class="interactive">
-    <div class="hello">
-      <ne-datepicker
-        [date]="date"
-        dateIn="AD"
-        (dateInBS)="updateItNepaliDate($event)"
-        (dateInAD)="updateItEnglishDate($event)"
-        [primaryColor]="primaryColor"
-        [language]="language"
-        [hasMultipleCalendarView]="hasMultipleCalendarView"
-        [darkTheme]="isDark"
-        [isError]="isError"
-      ></ne-datepicker>
-    </div>
-    <div class="it-options">
-      <div class="it-options__block">
-        <p>Primary color</p>
-        <input type="text" [(ngModel)]="primaryColor" />
-        <span
-          >Primary color value must be color name or hex value with #
-          prefix</span
-        >
+  <div class="datepicker__block">
+    <label class="datepicker__block__label">With more options</label>
+
+    <div class="datepicker-options">
+      <div class="datepicker-options__block">
+        <p>Select primary color</p>
+        <input type="color" [(ngModel)]="primaryColor" /><br /><br />
       </div>
-      <div class="it-options__block">
+      <div class="datepicker-options__block">
         <p>Dark theme</p>
         <input type="checkbox" [(ngModel)]="isDark" />
       </div>
-      <div class="it-options__block">
+      <div class="datepicker-options__block">
         <p>Error State</p>
         <input type="checkbox" [(ngModel)]="isError" />
       </div>
-      <div class="it-options__block">
+      <div class="datepicker-options__block">
         <p>Has multiple calendar View</p>
         <input type="checkbox" [(ngModel)]="hasMultipleCalendarView" />
       </div>
-      <div class="it-options__block">
-        <p>language</p>
+      <div class="datepicker-options__block">
+        <p>Language</p>
         <select [(ngModel)]="language">
           <option *ngFor="let lang of languageOptions" [value]="lang.value">
             {{ lang.label }}
@@ -62,37 +50,47 @@
         </select>
       </div>
     </div>
+    <ne-datepicker
+      [date]="date"
+      dateIn="AD"
+      (dateInBS)="updateItNepaliDate($event)"
+      (dateInAD)="updateItEnglishDate($event)"
+      [primaryColor]="primaryColor"
+      [language]="language"
+      [hasMultipleCalendarView]="hasMultipleCalendarView"
+      [darkTheme]="isDark"
+      [isError]="isError"
+    ></ne-datepicker>
   </div>
 
-  <div class="interactive">
-    <div class="hello">
-      <h4>with Disabled dates</h4>
-      <span>minimum date</span>
-      <ne-datepicker
-        [date]="date"
-        dateIn="AD"
-        (dateInBS)="updateItNepaliDate($event)"
-        (dateInAD)="updateItEnglishDate($event)"
-        [primaryColor]="primaryColor"
-        [language]="language"
-        [hasMultipleCalendarView]="hasMultipleCalendarView"
-        [darkTheme]="isDark"
-        [isError]="isError"
-        [minDate]="minDate"
-      ></ne-datepicker>
-      <span>maximum date</span>
-      <ne-datepicker
-        [date]="date"
-        dateIn="AD"
-        (dateInBS)="updateItNepaliDate($event)"
-        (dateInAD)="updateItEnglishDate($event)"
-        [primaryColor]="primaryColor"
-        [language]="language"
-        [maxDate]="maxDate"
-        [hasMultipleCalendarView]="hasMultipleCalendarView"
-        [darkTheme]="isDark"
-        [isError]="isError"
-      ></ne-datepicker>
-    </div>
+  <div class="datepicker__block">
+    <label class="datepicker__block__label">With disabled dates</label>
+
+    <label class="datepicker__block__description">minimum date</label>
+    <ne-datepicker
+      [date]="date"
+      dateIn="AD"
+      (dateInBS)="updateItNepaliDate($event)"
+      (dateInAD)="updateItEnglishDate($event)"
+      [primaryColor]="primaryColor"
+      [language]="language"
+      [hasMultipleCalendarView]="hasMultipleCalendarView"
+      [darkTheme]="isDark"
+      [isError]="isError"
+      [minDate]="minDate"
+    ></ne-datepicker>
+    <label class="datepicker__block__description">maximum date</label>
+    <ne-datepicker
+      [date]="date"
+      dateIn="AD"
+      (dateInBS)="updateItNepaliDate($event)"
+      (dateInAD)="updateItEnglishDate($event)"
+      [primaryColor]="primaryColor"
+      [language]="language"
+      [maxDate]="maxDate"
+      [hasMultipleCalendarView]="hasMultipleCalendarView"
+      [darkTheme]="isDark"
+      [isError]="isError"
+    ></ne-datepicker>
   </div>
-</div>
+</main>

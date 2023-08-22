@@ -1,38 +1,52 @@
-.test{
-  display: flex;
-  gap: 16px;
-  width: 100%;
-  & * {
-    flex: 1;
-  }
-}
-
-.interactive{
-  display: flex;
-  gap: 16px;
-  width: 100%;
-  .hello{
-    width: 500px;
-  }
-}
-
-.it-options {
-  flex: 1;
+.datepicker {
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+
+  &__header {
+    margin-block: 0 4px;
+  }
+  &__description {
+    margin-block: 0 16px;
+  }
 
   &__block{
-    // display: flex;
-    // column-gap: 6px;
-    p {
-      margin: 0 4px 0 0;
-      display: inline-block;
+    width: 400px;
+    display: block;
+    margin-bottom: 16px;
+
+    &--basic {
+      // display: flex;
+      // gap: 16px;
     }
-    span {
+
+    &__label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    &__description {
+      font-size: 16px;
+      margin-block: 8px;
       display: block;
+    }
+
+    p{
+      margin-block:0 4px;
       font-size: 14px;
     }
   }
+}
 
+.datepicker-options {
+  margin-bottom: 16px;
+  display: block;
+  &__block{
+    display: flex;
+    gap: 12px;
+
+    p {
+      font-size: 14px;
+    }
+  }
 }
