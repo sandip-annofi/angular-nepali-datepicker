@@ -88,7 +88,7 @@ export class NepaliDatepickerComponent
   private selectedTimeWithTimezone: any;
   private dateSeparatedCharacters = ['/', '-'];
   private currentDate: any;
-  private rootPrimaryColor = '#53c63f';
+  private rootPrimaryColor = '#1d49e7';
 
   private dateFormatter = (selectedDate: DateObj) => {
     const dd =

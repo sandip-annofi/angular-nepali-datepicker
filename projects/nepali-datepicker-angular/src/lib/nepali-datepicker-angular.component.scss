@@ -1,6 +1,6 @@
 
 .nepali-date-picker {
-  --ne-datepicker-primary-color:#231bcd;
+  --ne-datepicker-primary-color: #1d49e7;
 
   position: relative;
   display: inline-block;
@@ -42,6 +42,11 @@
 
         option {
           color: #333;
+          &:checked,
+          &:hover {
+            background-color: var(--ne-datepicker-primary-color);
+            color: #fff;
+          }
         }
       }
     }
@@ -86,7 +91,7 @@
       cursor: pointer;
       border-radius: 50%;
 
-      &:hover {
+      &:hover:not(.datepicker__date--active) {
         background-color: #eee;
       }
 
@@ -95,19 +100,11 @@
         background: #f3f3f3;
         border-radius: 50%;
         text-decoration: line-through;
-
-        &:hover {
-          background: #f3f3f3;
-        }
       }
 
       &--active {
         background-color: var(--ne-datepicker-primary-color);
         color: #fff;
-
-        &:hover {
-          color: #777;
-        }
       }
 
       &--current-day {
@@ -184,6 +181,13 @@ Dark Theme
       background: #333;
       &__select {
         color: #fff;
+        option {
+          color: #333;
+          &:checked {
+            background-color: #333;
+            color: #fff;
+          }
+        }
       }
     }
     &__date {
@@ -197,11 +201,11 @@ Dark Theme
       &--active {
         background-color: #000;
         color: #fff;
-        &:hover {
-          color: #fff;
-        }
+        // &:hover {
+        //   color: #fff;
+        // }
       }
-      &:hover {
+      &:hover:not(.datepicker__date--active) {
         background-color: #222;
         color: #fff;
       }
