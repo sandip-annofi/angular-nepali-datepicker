@@ -1,6 +1,23 @@
 {
   "name": "nepali-datepicker-angular",
   "version": "1.0.0",
+  "description": "Angular nepali datepicker library with no dependencies",
+  "keywords": [
+    "datepicker",
+    "nepali datepicker",
+    "angular nepali datepicker",
+    "nepali angular datepicker",
+    "bs datepicker",
+    "ad bs datepicker"
+  ],
+  "author": {
+    "name": "Rikesh Chhunju",
+    "email": "chhunju.rikesh@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "peerDependencies": {
     "@angular/common": ">=12.0.0",
     "@angular/core": ">=12.0.0"
