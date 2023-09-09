@@ -1,24 +1,39 @@
 # NepaliDatepickerAngular
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
+Angular library with no dependency.
 
-## Code scaffolding
+Datepicker with both AD and BS feature.
 
-Run `ng generate component component-name --project nepali-datepicker-angular` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project nepali-datepicker-angular`.
-> Note: Don't forget to add `--project nepali-datepicker-angular` or else it will be added to the default project in your `angular.json` file. 
+See [Demo and Documentation](https://recase.github.io/angular-nepali-datepicker/) for more information.
 
-## Build
+## installation
 
-Run `ng build nepali-datepicker-angular` to build the project. The build artifacts will be stored in the `dist/` directory.
+```script
+npm i nepali-datepicker-angular
+```
 
-## Publishing
+## version support
 
-After building your library with `ng build nepali-datepicker-angular`, go to the dist folder `cd dist/nepali-datepicker-angular` and run `npm publish`.
+angular version 12 or above.
 
-## Running unit tests
+## usages
 
-Run `ng test nepali-datepicker-angular` to execute the unit tests via [Karma](https://karma-runner.github.io).
+On app.module.ts
 
-## Further help
+```Typescript
+import { NepaliDatepickerModule } from 'nepali-datepicker-angular';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+@NgModule({
+  declarations: [...],
+  imports: [..., NepaliDatepickerModule, ...],
+  providers: [...],
+  bootstrap: [...],
+})
+```
+
+on component to use
+
+```html
+<ne-datepicker [date]="date" dateIn="AD" (dateInBS)="updateNepaliDate($event)" (dateInAD)="updateEnglishDate($event)"> </ne-datepicker>
+```

@@ -1,4 +1,4 @@
-# AngularNepaliDatepicker
+# NepaliDatepickerAngular
 
 Angular library with no dependency.
 
