@@ -20,7 +20,7 @@ export class AppComponent {
     },
   ];
 
-  public date = new Date().toISOString().split(' ')[0];
+  public date = '';
   public dateFormat = 'yyyy/mm/dd';
   public nepaliDate: string = '';
   public englishDate: string = '';
