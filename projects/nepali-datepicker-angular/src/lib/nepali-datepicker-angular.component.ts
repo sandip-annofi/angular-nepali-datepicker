@@ -46,7 +46,7 @@ export class NepaliDatepickerComponent
   @Input()
   primaryColor!: string;
   @Input()
-  placeholder = 'Enter BS Date';
+  placeholder = 'Enter date';
   @Input()
   language: Language = 'ne';
   @Input() dateIn: DateIn = 'BS';
