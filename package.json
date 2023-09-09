@@ -1,5 +1,5 @@
 {
-  "name": "angular-nepali-datepicker",
+  "name": "@rikeshchhunju/angular-nepali-datepicker",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,7 +10,7 @@
     "build-dev": "ng build --project nepali-datepicker-angular",
     "build-prod": "ng build --project nepali-datepicker-angular"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~12.0.3",
     "@angular/common": "~12.0.3",
@@ -38,5 +38,17 @@
     "karma-jasmine-html-reporter": "~1.5.0",
     "ng-packagr": "^12.0.0",
     "typescript": "~4.2.3"
-  }
+  },
+  "description": "Angular library with no dependency.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/recase/angular-nepali-datepicker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/recase/angular-nepali-datepicker/issues"
+  },
+  "homepage": "https://github.com/recase/angular-nepali-datepicker#readme"
 }
