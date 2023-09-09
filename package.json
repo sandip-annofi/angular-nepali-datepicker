@@ -45,7 +45,10 @@
     "type": "git",
     "url": "git+https://github.com/recase/angular-nepali-datepicker.git"
   },
-  "author": "",
+  "author": {
+    "name": "Rikesh Chhunju",
+    "email": "chhunju.rikesh@gmail.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/recase/angular-nepali-datepicker/issues"
