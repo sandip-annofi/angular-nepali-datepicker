@@ -1,15 +1,39 @@
 # AngularNepaliDatepicker
 
-Angular library with no dependency
-Datepicker with both AD and BS feature
+Angular library with no dependency.
 
-[![image.png](https://i.postimg.cc/GtpDPVyb/image.png)](https://postimg.cc/Q9RVh6mz)
-[![image-1.png](https://i.postimg.cc/SsSYq3Vc/image-1.png)](https://postimg.cc/R3YZLPk0)
+Datepicker with both AD and BS feature.
 
-with more customization
-[![image-2.png](https://i.postimg.cc/DyJJ2qQp/image-2.png)](https://postimg.cc/jLTdcnFy)
-[![image-3.png](https://i.postimg.cc/bw1ZnpBQ/image-3.png)](https://postimg.cc/jDdq00K5)
+See [Demo and Documentation](https://recase.github.io/angular-nepali-datepicker/) for more information.
 
 ## installation
 
-npm i nepali-datepicker-angular --registry (local registry)
+```script
+npm i nepali-datepicker-angular
+```
+
+## version support
+
+angular version 12 or above.
+
+## usages
+
+On app.module.ts
+
+```Typescript
+import { NepaliDatepickerModule } from 'nepali-datepicker-angular';
+
+
+@NgModule({
+  declarations: [...],
+  imports: [..., NepaliDatepickerModule, ...],
+  providers: [...],
+  bootstrap: [...],
+})
+```
+
+on component to use
+
+```html
+<ne-datepicker [date]="date" dateIn="AD" (dateInBS)="updateNepaliDate($event)" (dateInAD)="updateEnglishDate($event)"> </ne-datepicker>
+```
