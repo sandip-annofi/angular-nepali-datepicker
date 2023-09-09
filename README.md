@@ -37,3 +37,5 @@ on component to use
 ```html
 <ne-datepicker [date]="date" dateIn="AD" (dateInBS)="updateNepaliDate($event)" (dateInAD)="updateEnglishDate($event)"> </ne-datepicker>
 ```
+
+[Link](https://www.npmjs.com/package/nepali-datepicker-angular) to NPM package.
