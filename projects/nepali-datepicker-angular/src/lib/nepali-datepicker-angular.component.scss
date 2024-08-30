@@ -18,7 +18,8 @@
     opacity: 0.3;
     position: absolute;
     right: 8px;
-    top: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
   }
 

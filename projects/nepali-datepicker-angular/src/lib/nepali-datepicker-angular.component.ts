@@ -50,7 +50,6 @@ export class NepaliDatepickerComponent
   @Input()
   language: Language = 'ne';
   @Input() dateIn: DateIn = 'BS';
-  @Input() calendarMode: any = 'BS';
   @Input() isError = false;
   @Input() darkTheme = false;
   @Input() date!: string;
@@ -60,6 +59,8 @@ export class NepaliDatepickerComponent
   @Input() dateFormat: DateFormatType = 'yyyy/mm/dd';
   @Input() monthDisplayType: MonthDisplayType = 'default';
   @Input() hasMultipleCalendarView = true;
+  @Input() calendarView: string = "BS";
+
 
   @Output() dateInAD: EventEmitter<string> = new EventEmitter();
   @Output() dateInBS: EventEmitter<string> = new EventEmitter();
@@ -82,7 +83,6 @@ export class NepaliDatepickerComponent
   public isOpen = false;
   public calendarType = CalendarFormat.ne;
   public dayDisplayType: 'default' | 'short' = 'short';
-  public calendarView: DateIn = 'BS';
   public selectedMonthIndex: number;
   public selectedYear: number;
   private alwaysVisible = false;
@@ -116,14 +116,13 @@ export class NepaliDatepickerComponent
     private _datePipe: DatePipe,
     @Optional() @Inject('config') config: ConfigType
   ) {
-    this.calendarView = this.calendarMode;
-
     if (config && config.primaryColor) {
       this.rootPrimaryColor = config.primaryColor;
     }
     this.currentDate = new Date();
     this.setEnglishCurrentDate();
     this.setNepaliCurrentDate();
+    this.selectCalendarView(this.calendarView);
     this.nepaliDateToday = _nepaliDate.engToNepDate(
       this.currentDate.getDate(),
       this.currentDate.getMonth(),
@@ -160,6 +159,9 @@ export class NepaliDatepickerComponent
     if (changes['primaryColor'] && this.primaryColor) {
       this.rootPrimaryColor = this.primaryColor;
       this.setDatepickerColor();
+    }
+    if (changes['calendarView'] && this.calendarView) {
+      this.selectCalendarView(this.calendarView, false);
     }
   }
 
@@ -668,9 +670,8 @@ export class NepaliDatepickerComponent
     return `${date}${this.selectedTimeWithTimezone}`;
   }
 
-  public selectCalendarView(data: any) {
-    const type = data.target.value;
-    this.calendarView = type;
+  public selectCalendarView(data: any, isSelect?: any) {
+    this.calendarView = isSelect == true ? data.target.value : data;
     this.populateYears();
     this.monthsMapping =
       this.calendarView === 'BS' ? monthsMapping : englishMonthMapping;
