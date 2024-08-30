@@ -50,6 +50,7 @@ export class NepaliDatepickerComponent
   @Input()
   language: Language = 'ne';
   @Input() dateIn: DateIn = 'BS';
+  @Input() calendarMode: any = 'BS';
   @Input() isError = false;
   @Input() darkTheme = false;
   @Input() date!: string;
@@ -115,6 +116,8 @@ export class NepaliDatepickerComponent
     private _datePipe: DatePipe,
     @Optional() @Inject('config') config: ConfigType
   ) {
+    this.calendarView = this.calendarMode;
+
     if (config && config.primaryColor) {
       this.rootPrimaryColor = config.primaryColor;
     }
