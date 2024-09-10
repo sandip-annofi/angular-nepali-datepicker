@@ -1,5 +1,5 @@
 {
-  "name": "@rikeshchhunju/angular-nepali-datepicker",
+  "name": "@sandipsky/angular-nepali-datepicker",
   "version": "1.0.1",
   "scripts": {
     "ng": "ng",
@@ -46,8 +46,8 @@
     "url": "git+https://github.com/recase/angular-nepali-datepicker.git"
   },
   "author": {
-    "name": "Rikesh Chhunju",
-    "email": "chhunju.rikesh@gmail.com"
+    "name": "sandipsky",
+    "email": "sandipshakya75@gmail.com"
   },
   "license": "ISC",
   "bugs": {

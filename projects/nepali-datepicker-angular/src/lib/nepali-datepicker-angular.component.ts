@@ -29,6 +29,7 @@ import {
 import { NepaliDatepickerAngularPrivateService } from './services/nepali-datepicker-angular-private.service';
 import { DatePipe } from '@angular/common';
 import { englishLeapMonths, englishMonths } from './constants/data';
+import { NepaliDatepickerService } from '../public-api';
 type DateFormatType = 'yyyy/mm/dd' | 'dd/mm/yyyy' | 'yyyy-mm-dd' | 'dd-mm-yyyy';
 type Language = 'en' | 'ne';
 type MonthDisplayType = 'default' | 'short';
@@ -40,8 +41,7 @@ type DateIn = 'AD' | 'BS';
   encapsulation: ViewEncapsulation.None,
 })
 export class NepaliDatepickerComponent
-  implements OnInit, OnChanges, AfterViewInit
-{
+  implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('nepaliDatePicker') nepaliDatePicker!: ElementRef<HTMLDivElement>;
   @Input()
   primaryColor!: string;
@@ -60,10 +60,11 @@ export class NepaliDatepickerComponent
   @Input() monthDisplayType: MonthDisplayType = 'default';
   @Input() hasMultipleCalendarView = true;
   @Input() calendarView: string = "BS";
+  @Input() clearable: boolean = false;
 
 
-  @Output() dateInAD: EventEmitter<string> = new EventEmitter();
-  @Output() dateInBS: EventEmitter<string> = new EventEmitter();
+  @Output() dateInAD: EventEmitter<string | null> = new EventEmitter();
+  @Output() dateInBS: EventEmitter<string | null> = new EventEmitter();
 
   public nepaliDateToday: DateObj = { day: 0, month: 0, year: 0 };
   public englishDateToday: DateObj = { day: 0, month: 0, year: 0 };
@@ -73,9 +74,10 @@ export class NepaliDatepickerComponent
   public nepaliMinDate: DateObj = { day: 0, month: 0, year: 0 };
   public englishMaxDate: DateObj = { day: 0, month: 0, year: 0 };
   public englishMinDate: DateObj = { day: 0, month: 0, year: 0 };
-  public selectedDate!: DateObj;
-  public englishSelectedDate!: DateObj;
+  public selectedDate!: DateObj | null;
+  public englishSelectedDate!: DateObj | null;
   public formattedDate = '';
+  public formattedDateEnglish = '';
   public years: number[] = [];
   public currentMonthData!: any;
   public daysMapping: DaysMapping = daysMapping;
@@ -93,12 +95,12 @@ export class NepaliDatepickerComponent
 
   private dateFormatter = (selectedDate: DateObj) => {
     const dd =
-      selectedDate.day < 10 ? '0' + selectedDate.day : selectedDate.day;
+      selectedDate?.day < 10 ? '0' + selectedDate?.day : selectedDate?.day;
     const mm =
-      selectedDate.month < 9
-        ? '0' + (selectedDate.month + 1)
-        : selectedDate.month + 1;
-    return `${this.selectedDate.year}/${mm}/${dd}`;
+      selectedDate?.month < 9
+        ? '0' + (selectedDate?.month + 1)
+        : selectedDate?.month + 1;
+    return `${this.selectedDate?.year}/${mm}/${dd}`;
   };
 
   initialized: boolean = false;
@@ -112,6 +114,7 @@ export class NepaliDatepickerComponent
 
   constructor(
     public _nepaliDate: NepaliDatepickerAngularPrivateService,
+    private _dateService: NepaliDatepickerService,
     private eRef: ElementRef,
     private _datePipe: DatePipe,
     @Optional() @Inject('config') config: ConfigType
@@ -144,8 +147,18 @@ export class NepaliDatepickerComponent
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['date'] && this.date) {
-      this.setInputDate();
+    if (changes['date']) {
+      if (this.date) {
+        this.setInputDate();
+      }
+      else {
+        this.selectedDate = null;
+        this.englishSelectedDate = null;
+        this.date = '';
+        this.setCurrentDate();
+        this.formattedDate = '';
+        this.formattedDateEnglish = '';
+      }
     }
     if (changes['maxDate'] && this.maxDate) {
       this.setMaxDate();
@@ -167,6 +180,17 @@ export class NepaliDatepickerComponent
 
   ngAfterViewInit(): void {
     this.setDatepickerColor();
+  }
+
+  clearSelectedDate() {
+    this.selectedDate = null;
+    this.englishSelectedDate = null;
+    this.date = '';
+    this.dateInAD.emit(null);
+    this.dateInBS.emit(null);
+    this.setCurrentDate();
+    this.formattedDate = '';
+    this.formattedDateEnglish = '';
   }
 
   private setDatepickerColor() {
@@ -203,8 +227,8 @@ export class NepaliDatepickerComponent
       );
     }
     if (this.calendarView === 'BS') {
-      this.selectedMonthIndex = this.selectedDate.month;
-      this.selectedYear = this.selectedDate.year;
+      this.selectedMonthIndex = this.selectedDate?.month || 0;
+      this.selectedYear = this.selectedDate?.year || 0;
     } else {
       this.selectedMonthIndex = new Date(this.date).getMonth();
       this.selectedYear = new Date(this.date).getFullYear();
@@ -218,9 +242,9 @@ export class NepaliDatepickerComponent
     this.currentNepaliDate = fd;
     this.formatValue();
     this.currentDate = this._nepaliDate.nepToEngDate(
-      this.selectedDate.day,
-      this.selectedDate.month,
-      this.selectedDate.year
+      this.selectedDate?.day,
+      this.selectedDate?.month,
+      this.selectedDate?.year
     );
     this.englishSelectedDate = {
       day: this.currentDate.getDate(),
@@ -341,6 +365,7 @@ export class NepaliDatepickerComponent
   private formatValue() {
     if (this.selectedDate) {
       this.formattedDate = this.dateFormatter(this.selectedDate);
+      this.formattedDateEnglish = this._dateService.BSToAD(this.formattedDate, 'yyyy/mm/dd');
     }
   }
 
@@ -374,9 +399,9 @@ export class NepaliDatepickerComponent
       const { day, month, year } = this.selectedDate;
       this.currentNepaliDate = { day, month, year };
       this.currentDate = this._nepaliDate.nepToEngDate(
-        this.selectedDate.day,
-        this.selectedDate.month,
-        this.selectedDate.year
+        this.selectedDate?.day,
+        this.selectedDate?.month,
+        this.selectedDate?.year
       );
       this.setEnglishCurrentDate();
     }
@@ -405,7 +430,7 @@ export class NepaliDatepickerComponent
     this.setMonthDataBefore(day - 1, this.currentNepaliDate.day - 1);
     let currentMonthMaxValue =
       this._nepaliDate.nepaliMonths[this.currentNepaliDate.year - 2000][
-        this.currentNepaliDate.month
+      this.currentNepaliDate.month
       ];
 
     this.setMonthDataAfter(
@@ -417,8 +442,7 @@ export class NepaliDatepickerComponent
 
   private fillEnglishCalendar() {
     const day = new Date(
-      `${this.englishCurrentDate.year}/${this.englishCurrentDate.month + 1}/${
-        this.englishCurrentDate.day || 1
+      `${this.englishCurrentDate.year}/${this.englishCurrentDate.month + 1}/${this.englishCurrentDate.day || 1
       }`
     ).getDay();
     const currentEnglishDate = this.englishCurrentDate.day;
@@ -481,9 +505,9 @@ export class NepaliDatepickerComponent
     if (this.calendarView == 'BS') {
       this.selectedDate = { ...this.currentNepaliDate, day };
       const en = this._nepaliDate.nepToEngDate(
-        this.selectedDate.day,
-        this.selectedDate.month,
-        this.selectedDate.year
+        this.selectedDate?.day,
+        this.selectedDate?.month,
+        this.selectedDate?.year
       );
       this.englishSelectedDate = {
         day: en.getDate(),
@@ -496,9 +520,9 @@ export class NepaliDatepickerComponent
     } else {
       this.englishSelectedDate = { ...this.englishCurrentDate, day };
       this.selectedDate = this._nepaliDate.engToNepDate(
-        this.englishSelectedDate.day,
-        this.englishSelectedDate.month,
-        this.englishSelectedDate.year
+        this.englishSelectedDate?.day,
+        this.englishSelectedDate?.month,
+        this.englishSelectedDate?.year
       );
       this.selectedMonthIndex = this.currentDate.getMonth();
       this.selectedYear = this.currentDate.getFullYear();
@@ -635,9 +659,9 @@ export class NepaliDatepickerComponent
 
   private emitDateInAD() {
     const dateInAD = this._nepaliDate.nepToEngDate(
-      this.selectedDate.day,
-      this.selectedDate.month,
-      this.selectedDate.year
+      this.selectedDate?.day,
+      this.selectedDate?.month,
+      this.selectedDate?.year
     );
     const defaultFormatDate = this._datePipe.transform(
       dateInAD,
@@ -677,10 +701,10 @@ export class NepaliDatepickerComponent
       this.calendarView === 'BS' ? monthsMapping : englishMonthMapping;
     if (this.calendarView === 'BS') {
       this.selectedMonthIndex = this.selectedDate
-        ? this.selectedDate.month
+        ? this.selectedDate?.month
         : this.currentNepaliDate.month;
       this.selectedYear = this.selectedDate
-        ? this.selectedDate.year
+        ? this.selectedDate?.year
         : this.currentNepaliDate.year;
       this.currentNepaliDate = {
         year: this.selectedYear,
@@ -689,10 +713,10 @@ export class NepaliDatepickerComponent
       };
     } else {
       this.selectedMonthIndex = this.englishSelectedDate
-        ? this.englishSelectedDate.month
+        ? this.englishSelectedDate?.month
         : this.englishCurrentDate.month;
       this.selectedYear = this.englishSelectedDate
-        ? this.englishSelectedDate.year
+        ? this.englishSelectedDate?.year
         : this.englishCurrentDate.year;
       this.englishCurrentDate = {
         year: this.selectedYear,
