@@ -2,7 +2,7 @@
   <input class="np_datepicker_input" [ngClass]="{
       'np_datepicker_input--error': isError,
       'np_datepicker_input--active': isOpen
-    }" type="text" [value]="calendarView == 'AD' ? formattedDateEnglish : formattedDate" (focus)="open()" (keyup.escape)="close()" (keydown)="$event.preventDefault()" aria-hidden="true"
+    }" type="text" [value]="calendarView == 'AD' ? formattedDateEnglish : formattedDate" (focus)="open()" (keydown.Tab)="close()" (keyup.escape)="close()" readonly aria-hidden="true"
     [placeholder]="placeholder" />
   <a *ngIf="clearable == true" (click)="clearSelectedDate()" class="cross-icon">
     <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
