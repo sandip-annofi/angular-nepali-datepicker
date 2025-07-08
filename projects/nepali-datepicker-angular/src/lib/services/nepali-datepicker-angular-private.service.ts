@@ -160,7 +160,7 @@ export class NepaliDatepickerAngularPrivateService {
     this.englishDate = this.englishDate + difference;
 
     return new Date(
-      this.englishYear + '-' + this.englishMonth + '-' + this.englishDate
+      this.englishYear, this.englishMonth - 1, this.englishDate
     );
   }
 
